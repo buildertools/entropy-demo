@@ -1,0 +1,58 @@
+entropy:
+  image: buildertools/entropy:poc
+  command: ["manage","tcp://docker:3376"]
+  ports: 
+   - 2476:2476
+  links:
+   - swarm:docker
+
+entropy-client:
+  image: buildertools/entropy:poc
+  links:
+   - entropy:entropy
+  environment:
+   - "ENTROPY_HOST=tcp://entropy:2476"
+
+docker-client:
+  image: docker:1.10
+  links:
+   - swarm:docker
+  entrypoint: docker
+  environment:
+   - "DOCKER_HOST=tcp://docker:3376"
+  command: help
+
+swarm:
+  image: swarm
+  expose:
+   - 3376
+  links:
+   - node1:node1
+   - node2:node2
+   - node3:node3
+  command: ["manage", "-H", "tcp://0.0.0.0:3376", "nodes://node1:2375,node2:2375,node3:2375"]
+
+node1:
+  image: docker:1.10-dind
+  privileged: true
+
+node2:
+  image: docker:1.10-dind
+  privileged: true
+
+node3:
+  image: docker:1.10-dind
+  privileged: true
+
+# Create some "services"
+
+aws-pinger:
+  image: docker:1.10
+  command: docker -H tcp://docker:3376 run -d --label service=PingAWS alpine ping aws.amazon.com
+  links:
+   - swarm:docker
+do-pinger:
+  image: docker:1.10
+  command: docker -H tcp://docker:3376 run -d --label service=PingDO alpine ping digitalocean.com
+  links:
+   - swarm:docker
