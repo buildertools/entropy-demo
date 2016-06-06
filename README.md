@@ -1,3 +1,5 @@
+This demo is for the [buildertools/entropy](https://github.com/buildertools/entropy) project.
+
 # entropy-demo
 
 Make sure that your environment is set to use your local instance and not some important endpoint.
