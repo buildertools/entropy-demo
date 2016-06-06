@@ -51,7 +51,7 @@ These injectors are manifest as sidekicks. The sidekick containers will be named
     # Checkout the sidekicks
     docker-compose run --rm docker-client ps
     # Grab the ID of one of the sidekick injectors and inspect it
-    compose run --rm docker-client inpsect --format'{{json .Config.Labels}}' <INSERT THAT CONTAINER ID>
+    compose run --rm docker-client inspect --format '{{json .Config.Labels}}' <INSERT THAT CONTAINER ID>
 
 Now that the policy has been active for some time you should be able to see latency spikes in any of the do-pinger logs for 10 seconds (or more) at a time.
 
