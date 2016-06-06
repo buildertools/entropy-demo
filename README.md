@@ -34,7 +34,7 @@ Next create a failure policy. We are going to use the allingeek/gremlins image f
 
     docker-compose run --rm entropy-client create \
         --failure latency \
-        --freqnecy 10 \
+        --frequency 10 \
         --probability .25 \
         --image allingeek/gremlins \
         --criteria service=PingDO
