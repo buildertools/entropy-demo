@@ -19,7 +19,7 @@ The first is a Docker client. You can use it to manipulate your local cluster. D
 These services both have a "service" label.
 
     docker-compose run --rm docker-client ps --filter label=service
-    docker-compose run --rm docker-client ps --filter label=service=PingAWS
+    docker-compose run --rm docker-client ps --filter label=service=PingGoogle
     docker-compose run --rm docker-client ps --filter label=service=PingDO
 
 The other client is an Entropy serivce client. After the demo you should checkout the docker-compose.yml to see how all of this works and how to use the client directly in a real environment.
